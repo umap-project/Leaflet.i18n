@@ -2,7 +2,7 @@
 
 Internationalisation module for Leaflet plugins.
 
-This module has been extracted from  [Leaflet.Storage](https://github.com/yohanboniface/Leaflet.Storage), in case in can be useful for others.
+This module has been extracted from  [Leaflet.Storage](https://github.com/yohanboniface/Leaflet.Storage), in case it can be useful for others.
 
 See https://github.com/Leaflet/Leaflet/pull/1232 for a discussion on the history of this.
 
