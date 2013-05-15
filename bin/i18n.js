@@ -29,11 +29,10 @@ ast.walk(new UglifyJS.TreeWalker(function (node) {
 }));
 strings.sort();
 
+/* Needed to eval the locale files */
 L = {
-    S: {
-        registerLocale: function (name, strings) {
-            locales[name] = strings;
-        }
+    registerLocale: function (name, strings) {
+        locales[name] = strings;
     }
 };
 locale_codes.forEach(function (locale_code) {
