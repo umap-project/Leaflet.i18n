@@ -2,7 +2,8 @@
 
 var argv = require('optimist')
            .usage('node i18n.js --dir_path={somepath} --locale_dir_path={somepath} --locale_codes={nl,fr,es} --mode={js|json}')
-           .demand(['dir_path','locale_dir_path', 'locale_codes', 'mode'])
+           .demand(['dir_path', 'locale_dir_path', 'locale_codes', 'mode'])
+           .boolean('clean')
            .default('mode', 'js')
            .argv;
 var UglifyJS = require("uglify-js");
@@ -12,6 +13,7 @@ var dir_path = argv.dir_path,
     locale_dir = argv.locale_dir_path,
     locale_codes = argv.locale_codes.split(','),
     mode = argv.mode,
+    clean = argv.clean,
     files = fs.readdirSync(dir_path),
     ast = null,
     code = "",
@@ -48,6 +50,13 @@ var toJS = function (locale_code, locale_path) {
             translations[str] = "";
         }
     });
+    if (clean) {
+        Object.keys(translations).forEach(function (str) {
+            if (strings.indexOf(str) === -1) {
+                delete translations[str];
+            }
+        });
+    }
     raw_content += JSON.stringify(translations, null, 4);
     raw_content += ";\n\n";
     raw_content += 'L.registerLocale("' + locale_code + '", '+ locale_code + ');';
@@ -64,6 +73,13 @@ var toJSON = function (locale_code, locale_path) {
             translations[str] = "";
         }
     });
+    if (clean) {
+        Object.keys(translations).forEach(function (str) {
+            if (strings.indexOf(str) === -1) {
+                delete translations[str];
+            }
+        });
+    }
     return JSON.stringify(translations, null, 4);
 };
 locale_codes.forEach(function (locale_code) {
