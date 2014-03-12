@@ -3,7 +3,7 @@
 var argv = require('optimist')
            .usage('node i18n.js --dir_path={somepath} --locale_dir_path={somepath} --locale_codes={nl,fr,es} --mode={js|json}')
            .demand(['dir_path', 'locale_dir_path', 'locale_codes', 'mode'])
-           .boolean('clean')
+           .boolean(['clean', 'default_values'])
            .default('mode', 'js')
            .argv;
 var UglifyJS = require("uglify-js");
@@ -14,6 +14,7 @@ var dir_path = argv.dir_path,
     locale_codes = argv.locale_codes.split(','),
     mode = argv.mode,
     clean = argv.clean,
+    default_values = argv.default_values,  // Useful for json mode in Transifex
     files = fs.readdirSync(dir_path),
     ast = null,
     code = "",
@@ -47,7 +48,7 @@ var toJS = function (locale_code, locale_path) {
     }
     strings.forEach(function (str) {
         if (!translations[str]) {
-            translations[str] = "";
+            translations[str] = default_values ? str : "";
         }
     });
     if (clean) {
@@ -70,7 +71,7 @@ var toJSON = function (locale_code, locale_path) {
     }
     strings.forEach(function (str) {
         if (!translations[str]) {
-            translations[str] = "";
+            translations[str] = default_values ? str : "";
         }
     });
     if (clean) {
