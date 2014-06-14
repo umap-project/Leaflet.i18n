@@ -1,20 +1,24 @@
 {
-    "name": "Leaflet.i18n",
-    "version": "0.0.1",
-    "description": "Internationalization for Leaflet plugins",
-    "devDependencies": {
-        "Leaflet": "0.6.0",
-        "mocha": "~1.9.0",
-        "karma": "~0.8.0",
-        "uglify-js": "~2.3.2"
-    },
-    "main": "./Leaflet.i18n.js",
-    "scripts": {
-        "test": "make test"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/yohanboniface/Leaflet.i18n.git"
-    },
-    "keywords": ["Leaflet", "map", "i18n"]
+  "name": "leaflet-i18n",
+  "version": "0.1.0",
+  "description": "Internationalization for Leaflet plugins",
+  "devDependencies": {
+    "Leaflet": "0.7.3",
+    "uglify-js": "^2.3.6",
+    "mocha": "^1.9.0",
+    "karma": "^0.8.8"
+  },
+  "main": "./Leaflet.i18n.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yohanboniface/Leaflet.i18n.git"
+  },
+  "keywords": [
+    "Leaflet",
+    "map",
+    "i18n"
+  ]
 }
