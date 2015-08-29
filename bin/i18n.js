@@ -1,27 +1,29 @@
 #!/usr/bin/env node
 
-var argv = require('optimist')
-           .usage('node i18n.js --dir_path={somepath} --locale_dir_path={somepath} --locale_codes={nl,fr,es} --mode={js|json}')
-           .demand(['dir_path', 'locale_dir_path', 'locale_codes', 'mode'])
-           .boolean(['clean', 'default_values'])
-           .default('mode', 'js')
-           .argv;
+var argv = require('minimist')(process.argv.slice(2));
+if (!argv.dir_path || ! argv.locale_dir_path || !argv.locale_codes) {
+    console.log('node i18n.js --dir_path={somepath} [--dir_path={anotherpath}] --locale_dir_path={somepath} --locale_codes={nl,fr,es} --mode={js|json}');
+}
 var UglifyJS = require("uglify-js");
 var fs = require("fs");
 var path = require("path");
-var dir_path = argv.dir_path,
+var dirs = argv.dir_path,
     locale_dir = argv.locale_dir_path,
     locale_codes = argv.locale_codes.split(','),
-    mode = argv.mode,
+    mode = argv.mode || 'js',
     clean = argv.clean,
     default_values = argv.default_values,  // Useful for json mode in Transifex
-    files = fs.readdirSync(dir_path),
     ast = null,
     code = "",
     strings = [];
-files.forEach(function(file){
-    code += fs.readFileSync(path.join(dir_path, file), "utf8");
-});
+if (typeof dirs === 'string') dirs = [dirs];
+dirs.forEach(function (dir_path) {
+    var files = fs.readdirSync(dir_path);
+    files.forEach(function(file){
+        if (path.extname(file) !== '.js') return;
+        code += fs.readFileSync(path.join(dir_path, file), "utf8");
+    });
+})
 ast = UglifyJS.parse(code);
 
 ast.walk(new UglifyJS.TreeWalker(function (node) {

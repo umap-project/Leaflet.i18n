@@ -4,15 +4,15 @@
 // base path, that will be used to resolve files and exclude
 basePath = '.';
 
-var leafletSources = require(__dirname + '/../node_modules/Leaflet/build/build.js').getFiles();
+var leafletSources = require(__dirname + '/../node_modules/leaflet/build/build.js').getFiles();
 for (var i=0; i < leafletSources.length; i++) {
-    leafletSources[i] = "../node_modules/Leaflet/" + leafletSources[i];
+    leafletSources[i] = "../node_modules/leaflet/" + leafletSources[i];
 }
 
 // list of files / patterns to load in the browser
 files = [].concat([
   "../node_modules/mocha/mocha.js",
-  "../node_modules/Leaflet/spec/expect.js",
+  "../node_modules/leaflet/spec/expect.js",
   MOCHA_ADAPTER
 ], leafletSources, ['../Leaflet.i18n.js', 'specs.js']);
 
