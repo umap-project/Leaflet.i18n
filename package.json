@@ -1,6 +1,6 @@
 {
   "name": "leaflet-i18n",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Internationalization for Leaflet plugins",
   "devDependencies": {
     "karma": "^1.7.0",
