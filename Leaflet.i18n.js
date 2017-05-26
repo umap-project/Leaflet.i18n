@@ -12,7 +12,7 @@
 
     // attach your plugin to the global 'L' variable
     if (typeof window !== 'undefined' && window.L) {
-        window.L.i18n = window.L._ = factory(window.L);
+        factory(window.L);
 
     }
 }(function (L) {
@@ -24,7 +24,7 @@
     L.setLocale = function setLocale(code) {
         L.locale = code;
     };
-    return function translate(string, data) {
+    return L.i18n = L._ = function translate(string, data) {
         if (L.locale && L.locales[L.locale] && L.locales[L.locale][string]) {
             string = L.locales[L.locale][string];
         }

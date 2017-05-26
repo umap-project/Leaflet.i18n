@@ -21,5 +21,9 @@
     "Leaflet",
     "map",
     "i18n"
-  ]
+  ],
+  "dependencies": {
+    "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.4"
+  }
 }

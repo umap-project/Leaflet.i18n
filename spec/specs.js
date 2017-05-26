@@ -41,8 +41,4 @@ describe('L.i18n', function(){
         expect(L._("Simple phrase to translate")).to.eql("Simple phrase to translate");
     });
 
-    it('expects L.i18n to be defined', function (){
-        expect(require("../Leaflet.i18n.js")).to.be.ok();
-    });
-
 });
