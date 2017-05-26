@@ -23,8 +23,18 @@ dirs.forEach(function (dir_path) {
         if (path.extname(file) !== '.js') return;
         code += fs.readFileSync(path.join(dir_path, file), "utf8");
     });
-})
-ast = UglifyJS.parse(code);
+});
+ast = UglifyJS.parse ?
+    UglifyJS.parse(code) :
+    UglifyJS.minify(code, {
+        parse: {},
+        compress: false,
+        mangle: false,
+        output: {
+            ast: true,
+            code: false  // optional - faster if false
+        }
+    }).ast;
 
 ast.walk(new UglifyJS.TreeWalker(function (node) {
     if (node instanceof UglifyJS.AST_Call && node.expression.property == "_") {
