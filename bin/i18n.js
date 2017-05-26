@@ -23,7 +23,7 @@ dirs.forEach(function (dir_path) {
         if (path.extname(file) !== '.js') return;
         code += fs.readFileSync(path.join(dir_path, file), "utf8");
     });
-})
+});
 ast = UglifyJS.parse ?
     UglifyJS.parse(code) :
     UglifyJS.minify(code, {
