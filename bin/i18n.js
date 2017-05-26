@@ -24,17 +24,17 @@ dirs.forEach(function (dir_path) {
         code += fs.readFileSync(path.join(dir_path, file), "utf8");
     });
 })
-ast = UglifyJS.parse ? UglifyJS.parse : UglifyJS.minify(code, {
-                parse: {
-                    expression: true
-                },
-                compress: false,
-                mangle: false,
-                output: {
-                    ast: true,
-                    code: false
-                }
-            }).ast;
+ast = UglifyJS.parse ?
+    UglifyJS.parse(code) :
+    UglifyJS.minify(code, {
+        parse: {},
+        compress: false,
+        mangle: false,
+        output: {
+            ast: true,
+            code: false  // optional - faster if false
+        }
+    }).ast;
 
 ast.walk(new UglifyJS.TreeWalker(function (node) {
     if (node instanceof UglifyJS.AST_Call && node.expression.property == "_") {
