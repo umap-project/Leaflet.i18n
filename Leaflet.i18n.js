@@ -25,7 +25,7 @@
         L.locale = code;
     };
     return L.i18n = L._ = function translate(string, data) {
-        if (L.locale && L.locales[L.locale] && L.locales[L.locale][string]) {
+        if (L.locale && L.locales[L.locale] && typeof L.locales[L.locale][string] !== "undefined") {
             string = L.locales[L.locale][string];
         }
         try {

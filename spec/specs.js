@@ -2,7 +2,8 @@ describe('L.i18n', function(){
     beforeEach(function(){
         var fr = {
             "Simple phrase to translate": "Une simple phrase à traduire",
-            "A phrase with a {variable} to translate": "Une phrase à traduire avec une {variable}"
+            "A phrase with a {variable} to translate": "Une phrase à traduire avec une {variable}",
+            "A phrase with empty translation": ""
         };
         L.registerLocale('fr', fr);
         L.setLocale('fr');
@@ -26,6 +27,10 @@ describe('L.i18n', function(){
 
     it("should translate sentences with a variable", function() {
         expect(L._("A phrase with a {variable} to translate", {variable: "foo"})).to.eql("Une phrase à traduire avec une foo");
+    });
+
+    it("should translate empty translations", function() {
+        expect(L._("A phrase with empty translation")).to.eql("");
     });
 
     it("should not fail if a variable is missing", function() {
