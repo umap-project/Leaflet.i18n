@@ -3,12 +3,13 @@
   "version": "0.3.1",
   "description": "Internationalization for Leaflet plugins",
   "devDependencies": {
-    "karma": "^1.7.0",
-    "karma-mocha": "^1.3.0",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "leaflet": "1.0.3",
+    "chai": "^4.3.7",
+    "karma": "^6.4.2",
+    "karma-firefox-launcher": "^1.3.0",
+    "karma-mocha": "^2.0.1",
+    "leaflet": "1.9.4",
     "minimist": "^1.2.0",
-    "mocha": "^3.4.2",
+    "mocha": "^10.2.0",
     "uglify-js": "^3.0.11"
   },
   "main": "./Leaflet.i18n.js",

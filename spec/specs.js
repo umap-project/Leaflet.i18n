@@ -1,3 +1,5 @@
+const expect = chai.expect
+
 describe('L.i18n', function(){
     beforeEach(function(){
         var fr = {
@@ -10,11 +12,11 @@ describe('L.i18n', function(){
     });
 
     it('expects L.i18n to be defined', function (){
-        expect(L.i18n).to.be.ok();
+        expect(L.i18n).to.be.ok;
     });
 
     it('expects L._ to be defined', function (){
-        expect(L._).to.be.ok();
+        expect(L._).to.be.ok;
     });
 
     it('expects current locale to be fr', function (){

@@ -1,11 +1,6 @@
 // Karma configuration
 // Generated on Wed May 15 2013 11:59:59 GMT+0200 (CEST)
 
-var leafletSources = require(__dirname + '/../node_modules/leaflet/build/build.js').getFiles();
-for (var i = 0; i < leafletSources.length; i++) {
-    leafletSources[i] = "../node_modules/leaflet/" + leafletSources[i];
-}
-
 module.exports = function (config) {
     config.set({
 
@@ -17,8 +12,10 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [].concat([
             "../node_modules/mocha/mocha.js",
-            "../node_modules/leaflet/spec/expect.js"
-        ], leafletSources, ['../Leaflet.i18n.js', 'specs.js']),
+            "../node_modules/chai/chai.js",
+            '../node_modules/leaflet/dist/leaflet.js',
+            '../Leaflet.i18n.js',
+            'specs.js']),
 
 
         // list of files to exclude
@@ -58,11 +55,11 @@ module.exports = function (config) {
         // - Safari (only Mac)
         // - PhantomJS
         // - IE (only Windows)
-        browsers: ['PhantomJS'],
+        browsers: ['Firefox'],
 
         plugins: [
             'karma-mocha',
-            'karma-phantomjs-launcher'
+            'karma-firefox-launcher'
         ],
 
         // If browser does not capture in given timeout [ms], kill it
