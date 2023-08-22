@@ -1,2 +1,2 @@
 test:
-	karma start spec/karma.conf.js
+	./node_modules/.bin/karma start spec/karma.conf.js
