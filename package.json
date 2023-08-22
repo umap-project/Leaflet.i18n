@@ -10,7 +10,7 @@
     "leaflet": "1.9.4",
     "minimist": "^1.2.0",
     "mocha": "^10.2.0",
-    "uglify-js": "^3.0.11"
+    "uglify-js": "^3.17.4"
   },
   "main": "./Leaflet.i18n.js",
   "scripts": {
