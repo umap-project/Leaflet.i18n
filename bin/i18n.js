@@ -37,7 +37,7 @@ ast = UglifyJS.parse ?
     }).ast;
 
 ast.walk(new UglifyJS.TreeWalker(function (node) {
-    if (node instanceof UglifyJS.AST_Call && node.expression.property == "_") {
+    if (node instanceof UglifyJS.AST_Call && node.expression.property === "_") {
         if (typeof node.args[0].value !== "undefined") {
             strings.push(node.args[0].value);
         }
