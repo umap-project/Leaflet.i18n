@@ -18,7 +18,7 @@ var dirs = argv.dir_path,
     strings = [];
 if (typeof dirs === 'string') dirs = [dirs];
 dirs.forEach(function (dir_path) {
-    var files = fs.readdirSync(dir_path);
+    var files = fs.readdirSync(dir_path, {recursive: true});
     files.forEach(function(file){
         if (path.extname(file) !== '.js') return;
         code += fs.readFileSync(path.join(dir_path, file), "utf8");

@@ -1,6 +1,6 @@
 {
   "name": "leaflet-i18n",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Internationalization for Leaflet plugins",
   "devDependencies": {
     "chai": "^4.3.7",
