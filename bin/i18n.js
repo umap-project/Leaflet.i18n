@@ -2,20 +2,23 @@
 
 var argv = require('minimist')(process.argv.slice(2));
 if (!argv.dir_path || ! argv.locale_dir_path || !argv.locale_codes) {
-    console.log('node i18n.js --dir_path={somepath} [--dir_path={anotherpath}] --locale_dir_path={somepath} --locale_codes={nl,fr,es} --mode={js|json}');
+    console.log('node i18n.js --dir_path={somepath} [--dir_path={anotherpath}] --locale_dir_path={somepath} --locale_codes={nl,fr,es} --mode={js|json} [--expressions=funcname,funcname] [--dry_run]');
 }
 var UglifyJS = require("uglify-js");
 var fs = require("fs");
 var path = require("path");
 var dirs = argv.dir_path,
     locale_dir = argv.locale_dir_path,
-    locale_codes = argv.locale_codes.split(','),
+    locale_codes = (argv.locale_codes || '').split(','),
     mode = argv.mode || 'js',
     clean = argv.clean,
     default_values = argv.default_values,  // Useful for json mode in Transifex
     ast = null,
     code = "",
-    strings = [];
+    strings = [],
+    expressions = (argv.expressions || '_').split(','),
+    dry_run = argv.dry_run;
+
 if (typeof dirs === 'string') dirs = [dirs];
 dirs.forEach(function (dir_path) {
     var files = fs.readdirSync(dir_path, {recursive: true});
@@ -37,13 +40,14 @@ ast = UglifyJS.parse ?
     }).ast;
 
 ast.walk(new UglifyJS.TreeWalker(function (node) {
-    if (node instanceof UglifyJS.AST_Call && node.expression.property === "_") {
-        if (typeof node.args[0].value !== "undefined") {
+    if (node instanceof UglifyJS.AST_Call) {
+        // `translate`` call vs `L._`` call
+        let name = node.expression.name || node.expression.property;
+        if (expressions.includes(name) && node.args[0].value !== undefined) {
             strings.push(node.args[0].value);
         }
     }
 }));
-strings.sort();
 
 var toJS = function (locale_code, locale_path) {
     /* Needed to eval the locale files */
@@ -99,6 +103,10 @@ locale_codes.forEach(function (locale_code) {
     var locale_path = path.join(locale_dir, locale_code + "." + mode);
     var func = (mode === "json")? toJSON: toJS;
     var raw_content = func(locale_code, locale_path);
-    process.stdout.write('Writing file for locale "' + locale_code + '"\n');
-    fs.writeFileSync(locale_path, raw_content, 'utf8');
+    if (dry_run) {
+        console.log(raw_content)
+    } else {
+        process.stdout.write('Writing file for locale "' + locale_code + '"\n');
+        fs.writeFileSync(locale_path, raw_content, 'utf8');
+    }
 });
